@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block title %} {{ query.title }} {% endblock %}
+{% block body%}
+    <div class="container">
+        <div class="row">
+            <div class="card" style="width: 19rem;" >
+              <img src="{{ query.img_url }}" alt="{{ query.title }}" style="height: 450px; width: 300px; padding: 20px;">
+              </div>
+              <div class="" style="margin-left: 2%; margin-top: 15%;">
+                <p style="font-size: 20px;">Title: {{ query.title }}</p>
+                <p style="font-size: 18px;">Author: {{ query.author}}</p>
+                <p>rating_count: {{ query.review_count }}</p>
+                <p>average_rating: {{ query.average_score }}</p>
+              </div>
+          </div>
+          <div class="row" style="padding-top: 10px;">
+            <div class="card" style="margin-top: 2%; padding: 15px; width: 90%;">
+                  <h4><strong>Reviews</strong></h4>
+                  <hr>
+                  <div class="">
+                    <form class="" action="{{ url_for('review', isbn=query.isbn) }}" method="post">
+                      <div class="">
+                        <label for="" style="margin-top"> <strong>Write a review: </strong></label>
+                        <input class="form-control form-rounded" type="text" style="height: 50px; width: 100%; border-radius: 5px;" name="review" placeholder="Type review here...">
+                      </div>
+                      <div class="stars">
+                          <input class="star star-5" id="star-5" type="radio" name="s5"/>
+                          <label class="star star-5" for="star-5"></label>
+                          <input class="star star-4" id="star-4" type="radio" name="s4"/>
+                          <label class="star star-4" for="star-4"></label>
+                          <input class="star star-3" id="star-3" type="radio" name="s3"/>
+                          <label class="star star-3" for="star-3"></label>
+                          <input class="star star-2" id="star-2" type="radio" name="s2"/>
+                          <label class="star star-2" for="star-2"></label>
+                          <input class="star star-1" id="star-1" type="radio" name="s1"/>
+                          <label class="star star-1" for="star-1"></label>
+                      </div>
+                      <div class="">
+                        <input type="submit" name="submit-review" value="Submit" class="btn btn-primary" style="width:100px; margin-left: 10px;">
+                      </div>
+                    </form>
+                  </div>
+                  <hr>
+
+                  {% for review in reviews%}
+                  <div class="" style="padding: 10px;">
+                    <h6><strong> {{ review.username }}
+                    {% for index in review.rate %}
+                      {% if loop.index == index %}
+                        <span class="fa fa-star" style="color: orange"></span>
+                      {% else %}
+                        <span class="fa fa-star"></span>
+                      {% endif %}
+                    {% endfor %}
+                    </strong></h6>
+                    <p style="margin-left: 10px;"> {{ review.review }}</p>
+                    {% if not loop.last %}
+                      <hr>
+                    {% endif %}
+                  </div>
+                  {% endfor %}
+            </div>
+          </div>
+        </div>
+{% endblock %}

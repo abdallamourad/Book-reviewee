@@ -1,0 +1,72 @@
+{% extends "layout.html"%}
+{% block title %} Login {% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+            <form role="form" method="post" action="{{ url_for('checkuser') }}">
+            <fieldset>
+              <p class="text-uppercase" style="font-size: 20px;"> Login using your account </p>
+
+              {% if error %}
+                <div class="alert alert-danger" role="alert">
+                  Sorry, {{ error }}
+                </div>
+              {% endif %}
+
+              <div class="form-group">
+                <input type="text" name="logname" id="username" class="form-control input-lg" placeholder="username" required>
+              </div>
+              <div class="form-group">
+                <input type="password" name="logpassword" id="password" class="form-control input-lg" placeholder="Password" required>
+              </div>
+              <div>
+                <input type="submit" class="btn btn-lg btn-dark" value="Sign In" name="login">
+              </div>
+
+            </fieldset>
+        </form>
+        </div>
+
+        <div class="col-md-2">
+          <!-------null------>
+        </div>
+        <div class="col-md-5">
+          <form role="form" method="post" action="{{ url_for('checkuser') }}">
+            <fieldset>
+              <p class="text-uppercase pull-center" style="font-size: 20px"> SIGN UP</p>
+
+              {% if sign_error %}
+                <div class="alert alert-danger" role="alert">
+                  Sorry, {{ sign_error }}
+                </div>
+              {% elif success %}
+              <div class="alert alert-success" role="alert">
+                  {{ success }}
+              </div>
+              {% endif %}
+
+
+              <div class="form-group">
+                <input type="text" name="signame" id="username" class="form-control input-lg" placeholder="username" required>
+              </div>
+
+              <div class="form-group">
+                <input type="email" name="signemail" id="email" class="form-control input-lg" placeholder="Email Address" required>
+              </div>
+              <div class="form-group">
+                <input type="password" name="signpassword" id="password" class="form-control input-lg" placeholder="Password" required>
+              </div>
+              <div>
+                    <input type="submit" class="btn btn-lg btn-primary" value="Sign Up" name="signup">
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
