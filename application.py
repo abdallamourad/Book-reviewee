@@ -32,7 +32,7 @@ def login():
 @app.route("/checkuser", methods=["POST"])
 def checkuser():
     name, email, password, count = [None for i in range(4)]
-
+    print(request.form)
     if "login" in request.form:
         name = request.form.get("logname")
         password = request.form.get("logpassword").encode('utf-8')
@@ -52,7 +52,7 @@ def checkuser():
             return redirect(url_for('search'))
         elif "signup" in request.form:
             # Display an error as user found.
-            return render_template('login.html', sign_error='account is already exist!')
+            return render_template('login.html', error='account is already exist!')
 
     elif "signup" in request.form and db.execute("SELECT username FROM users WHERE username=:name OR email=:email",
             {"name": name, "email": email}).rowcount == 0:
@@ -63,14 +63,16 @@ def checkuser():
         return render_template('login.html', success="account has been created successfully!")
     else:
         # Display an error for user not found.
-        return render_template('login.html', error=" user not found!")
+        return render_template('login.html', error="user not found!")
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
     # Display all books
     books = None
     try:
-
+        if request.method == "GET" and 'username' not in session:
+            raise Exception('This method is not allowed!')
+            
         if request.method == "POST":
             if "query" in request.form:
                 query = str(request.form.get("query"))
@@ -81,7 +83,6 @@ def search():
                     return render_template("error.html", error="NO MATCH FOUND!")
         else:
             books = db.execute("SELECT isbn, title, author, pub_year, img_url, average_score, review_count FROM books ORDER BY title ASC")
-
     except Exception as e:
         return render_template("error.html", error="ERROR OCCURED!")
 

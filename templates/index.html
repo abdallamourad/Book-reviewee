@@ -1,10 +1,60 @@
 {% extends "layout.html" %}
 {% block title %} Home {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg" style="background:rgba(40,57,101);">
+  <a class="navbar-brand" href="{{ url_for('index') }}" style="color: white"> <img src="{{ url_for('static', filename='book.svg') }}" alt="icon" id="book-icon">Book Reviewee</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      {% if session %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('search') }}" style="color:white;">Search</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="topnac-right">
+    {% if session is none %}
+      <a class="btn btn-outline-light topnav-right" href="{{ url_for('login') }}" name="button"> Sign in</a>
+    {% else %}
+      <a class="btn btn-outline-light topnav-right" href="{{ url_for('logout') }}" name="button"> logout</a>
+    {% endif %}
+  </div>
 
+</nav>
+{% endblock %}
 {% block body %}
-  <div class="row">
-    <div class="card" style="width: 90%">
-        HELLO
+  <div class="row" style="padding: 5%;">
+    <div class="card" style=" padding: 20px; width: 100%;">
+      <div class="usage">
+        <h3>Usage</h3>
+        <ul>
+          <li>Log in or Sign up</li>
+          <li>Search for books by using keywords: <br>
+            <i style="margin-left: 10px; color: grey">Title, Author's name or isbn</i>
+          </li>
+          <li>share some intuitions about your favorite book.</li>
+        </ul>
+      </div>
+      <div class="obj">
+        <h3>Objectives</h3>
+        <ul>
+          <li>Search for books to read</li>
+          <li>Review books afterwards</li>
+          <li>Database include 5000+ different books</li>
+        </ul>
+      </div>
+      <div class="api">
+        <h3>API Usage</h3>
+        <p style="margin-left: 10px;">You can access the API by doing the following: </p>
+        <ul style="margin-left: 10px;">
+          <li>Method: <span style="color:grey;">GET</span></li>
+          <li>provide book's isbn at the end of route <br>
+            <a href="/book/api/1401902790" style="margin-left: 15px; color: grey">/book/api/isbn</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 {% endblock %}

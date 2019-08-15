@@ -1,7 +1,31 @@
 {% extends "layout.html" %}
 
 {% block title %} Search {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg" style="background:rgba(40,57,101);">
+  <a class="navbar-brand" href="{{ url_for('index') }}" style="color: white"> <img src="{{ url_for('static', filename='book.svg') }}" alt="icon" id="book-icon">Book Reviewee</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      {% if session %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('search') }}" style="color:white;">Search</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="topnac-right">
+    {% if session is none %}
+      <a class="btn btn-outline-light topnav-right" href="{{ url_for('login') }}" name="button"> Sign in</a>
+    {% else %}
+      <a class="btn btn-outline-light topnav-right" href="{{ url_for('logout') }}" name="button"> logout</a>
+    {% endif %}
+  </div>
 
+</nav>
+{% endblock %}
 {% block link %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/searchbar.css') }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">

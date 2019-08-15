@@ -16,34 +16,8 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{{ url_for('index') }}">Book App</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('index') }}" >Home <span class="sr-only">(current)</span></a>
-          </li>
-          {% if session %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('search') }}">Search</a>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
-      <div class="topnac-right">
-        {% if session is none %}
-          <a class="btn btn-outline-light topnav-right" href="{{ url_for('login') }}" name="button"> Sign in</a>
-        {% else %}
-          <a class="btn btn-outline-light topnav-right" href="{{ url_for('logout') }}" name="button"> logout</a>
-        {% endif %}
-      </div>
-
-    </nav>
-
-      {% block body %}
-      {% endblock %}
+    {% block nav %} {% endblock %}
+    {% block body %}
+    {% endblock %}
   </body>
 </html>
