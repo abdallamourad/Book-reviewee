@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'
 
 # SQL objects
-engine = create_engine("postgres://edvpoetkzjshhd:a3f5922084155bf6bd7118c461fb68bc768f975d1e8a1441812f24a4de931d5a@ec2-107-22-211-248.compute-1.amazonaws.com:5432/dediqmbmo9m18i")
+engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 # Flask route
